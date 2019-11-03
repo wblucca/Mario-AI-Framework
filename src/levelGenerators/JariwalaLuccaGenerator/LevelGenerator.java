@@ -413,10 +413,39 @@ public class LevelGenerator implements MarioLevelGenerator {
     }
 
     private ArrayList<Chunk> getUniqueChunks(Chunk level) {
-        int col = 0;
+        int col_start = 0;
+        int col_end = 0;
+
+        ArrayList<Chunk> uniqueChunks = new ArrayList<>();
 
         // Advance col past Mario in level
-        while (col < level.getWidth()) {}
+        Boolean foundMario = false;
+        while (col_start < level.getWidth() && !foundMario) {
+            // Check whole column for Mario
+            char[] column = level.getColumn(col_start);
+            for (char c : column) {
+                if (c == MarioLevelModel.MARIO_START) {
+                    foundMario = true;
+                }
+            }
+
+            col_start++;
+        }
+
+        // Loop through the remainder of the level
+        while (col_start < level.getWidth()) {
+            // Advance past boring ground columns
+            while (level.checkGround(col_start)) {
+                col_start++;
+            }
+
+            col_end = col_start + 1;
+
+            // Advance past exciting non-ground columns
+            while (level.checkGround(col_end) && level.checkGround(col_end + 1)) {
+                col_end++;
+            }
+        }
 
         return null;
     }
