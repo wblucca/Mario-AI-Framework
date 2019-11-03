@@ -13,28 +13,8 @@ import java.util.Scanner;
 
 public class LevelGenerator implements MarioLevelGenerator {
 
-    private double HI_GROUND_CHANCE = 0.0;
-    private double PLAT_CHANCE = 0.1;
-    private double GAP_CHANCE = 0.2;
-    private double HILL_CHANCE = 0.1;
-    private double LOWPIPE_CHANCE = 0.2;
-    private double HIGHPIPE_CHANCE = 0.2;
-    private double LOWPIPEPLANT_CHANCE = 0.1;
-    private double HIGHPIPEPLANT_CHANCE = 0.1;
-    private double GOOBA1_CHANCE = 0.2;
-    private double GOOBA2_CHANCE = 0.2;
-    private double KOOPA1_CHANCE = 0.2;
-    private double KOOPA2_CHANCE = 0.2;
-    private double KOOPA3_CHANCE = 0.2;
-    private double MIX1_CHANCE = 0.2;
-    private double MIX2_CHANCE = 0.2;
-    private double EMPTY_CHANCE = 0.2;
-    private double RAMP_CHANCE = 0.1;
-    private double START_CHANCE = 0.0;
-
-
+    // Markov table
     HashMap<Chunk, HashMap> transitionMaps = new HashMap<>();
-
 
 
     // Hand-made level chunks
@@ -59,7 +39,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         C = multi hit coin block?
         % = mushroom floating platform
         o = coin
-*/
+    */
 
     private final Chunk HI_GROUND = new Chunk(new String[]{
             "----",
