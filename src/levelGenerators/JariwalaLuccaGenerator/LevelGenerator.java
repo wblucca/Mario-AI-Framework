@@ -422,21 +422,6 @@ public class LevelGenerator implements MarioLevelGenerator {
         cursorPos += chunk.getWidth();
     }
 
-    /*
-    public static String[][] readFile(String filename) throws Exception {
-        BufferedReader fileInput = new BufferedReader(new FileReader("lvl-1.txt"));
-        fileInput.readLine().length();
-
-
-        String[][] s = new String[fileInput.readLine().length()][5];
-        String line;
-        while ((line = fileInput.readLine()) != null) {
-
-        }
-        fileInput.close();
-        return s;
-    }
-*/
     public static ArrayList<String> readFileList(String filepath) throws Exception {
         Scanner scanner = new Scanner(new File(filepath));
         ArrayList<String> lvlRows = new ArrayList<String>();
