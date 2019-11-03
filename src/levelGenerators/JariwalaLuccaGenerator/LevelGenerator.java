@@ -464,6 +464,13 @@ public class LevelGenerator implements MarioLevelGenerator {
 
         System.out.println(model.getMap());
 
+        try {
+            Chunk fileChunk = new Chunk(readFileList("levels/notchParam/lvl-1.txt"));
+            System.out.println(fileChunk);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return model.getMap();
     }
 
@@ -487,6 +494,16 @@ class Chunk {
     }
 
     public Chunk(String[] rows) {
+        init(rows);
+    }
+
+    public Chunk(ArrayList<String> rowsList) {
+        String[] rowsArray = new String[rowsList.size()];
+        rowsList.toArray(rowsArray);
+        init(rowsArray);
+    }
+
+    private void init(String[] rows) {
         int width = rows[0].length();
         int height = rows.length;
 
@@ -499,16 +516,16 @@ class Chunk {
         }
     }
 
-    public Chunk(ArrayList<String> rows) {
-        new Chunk((String[])(rows.toArray()));
-    }
-
     public int getWidth() {
         return blocks.length;
     }
 
     public int getHeight() {
-        return blocks[0].length;
+        if (getWidth() > 0) {
+            return blocks[0].length;
+        }
+
+        return 0;
     }
 
     /**
@@ -542,8 +559,8 @@ class Chunk {
     public String toString() {
         String blocksAsStr = "";
 
-        for (int y = 0; y < getHeight(); y++) {
-            for (int x = 0; x < getWidth(); x++) {
+        for (int x = 0; x < getWidth(); x++) {
+            for (int y = 0; y < getHeight(); y++) {
                 blocksAsStr += blocks[x][y];
             }
             blocksAsStr += "\n";
