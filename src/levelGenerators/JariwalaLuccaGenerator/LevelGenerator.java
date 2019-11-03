@@ -4,6 +4,7 @@ import engine.core.MarioLevelGenerator;
 import engine.core.MarioLevelModel;
 import engine.core.MarioTimer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LevelGenerator implements MarioLevelGenerator {
@@ -431,6 +432,7 @@ public class LevelGenerator implements MarioLevelGenerator {
     @Override
     public String getGeneratedLevel(MarioLevelModel model, MarioTimer timer) {
         createHash();
+
         // Store the given model so other methods have access
         this.marioLevelModel = model;
         String currentChunk = START;
@@ -455,6 +457,86 @@ public class LevelGenerator implements MarioLevelGenerator {
     @Override
     public String getGeneratorName() {
         return "JariwalaLuccaGenerator";
+    }
+
+}
+
+/**
+ * A class for representing chunks
+ */
+class Chunk {
+
+    // All the blocks of the chunk (i.e. block[row][col])
+    private char[][] blocks;
+
+    public Chunk(char[][] blocks) {
+        this.blocks = blocks;
+    }
+
+    public Chunk(String[] rows) {
+        int width = rows[0].length();
+        int height = rows.length;
+
+        blocks = new char[width][height];
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                blocks[x][y] = rows[y].charAt(x);
+            }
+        }
+    }
+
+    public Chunk(ArrayList<String> rows) {
+        new Chunk((String[])(rows.toArray()));
+    }
+
+    public int getWidth() {
+        return blocks.length;
+    }
+
+    public int getHeight() {
+        return blocks[0].length;
+    }
+
+    /**
+     * Get the blocks stored in the chunk itself as a 2D array
+     * @return A 2D array of chars representing the blocks in the chunk
+     */
+    public char[][] getBlocks() {
+        return blocks;
+    }
+
+    /**
+     * Get a specified column of blocks in the chunk
+     * @param x The x-coordinate of the column
+     * @return The column at this x-coordinate, or null
+     * if the column does not exist
+     */
+    public char[] getColumn(int x) {
+        if (x < 0 || x >= blocks.length) {
+            return null;
+        }
+        return blocks[x];
+    }
+
+    @Override
+    public int hashCode() {
+
+        return toString().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        String blocksAsStr = "";
+
+        for (int y = 0; y < getHeight(); y++) {
+            for (int x = 0; x < getWidth(); x++) {
+                blocksAsStr += blocks[x][y];
+            }
+            blocksAsStr += "\n";
+        }
+
+        return blocksAsStr;
     }
 
 }
