@@ -61,12 +61,13 @@ public class LevelGenerator implements MarioLevelGenerator {
         o = coin
 */
 
-    private final String HI_GROUND = "" +
-            "----" + "\n" +
-            "XXXX" + "\n" +
-            "XXXX" + "\n" +
-            "XXXX" + "\n" +
-            "XXXX";
+    private final Chunk HI_GROUND = new Chunk(new String[]{
+            "----",
+            "XXXX",
+            "XXXX",
+            "XXXX",
+            "XXXX"
+    });
 
     private final String PLAT = "" +
             "-SSSSS-" + "\n" +
