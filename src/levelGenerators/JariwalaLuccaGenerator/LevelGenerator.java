@@ -33,7 +33,7 @@ public class LevelGenerator implements MarioLevelGenerator {
     private double START_CHANCE = 0.0;
 
 
-    HashMap<String, HashMap> transitionMaps = new HashMap<String, HashMap>();
+    HashMap<Chunk, HashMap> transitionMaps = new HashMap<>();
 
 
 
@@ -215,7 +215,7 @@ public class LevelGenerator implements MarioLevelGenerator {
 
     public void createHash() {
         // HI_GROUND chunk transition table
-        HashMap<String, Double> hiGroundTable = new HashMap<>();
+        HashMap<Chunk, Double> hiGroundTable = new HashMap<>();
         hiGroundTable.put(HILL, 0.3);
         hiGroundTable.put(GAP, 0.3);
         hiGroundTable.put(LOWPIPE, 0.3);
@@ -223,7 +223,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         transitionMaps.put(HI_GROUND, hiGroundTable);
 
         // PLAT chunk transition table
-        HashMap<String, Double> platTable = new HashMap<>();
+        HashMap<Chunk, Double> platTable = new HashMap<>();
         platTable.put(MIX1, 0.3);
         platTable.put(EMPTY, 0.3);
         platTable.put(MIX2, 0.3);
@@ -231,7 +231,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         transitionMaps.put(PLAT, platTable);
 
         // GAP chunk transition table
-        HashMap<String, Double> gapTable = new HashMap<>();
+        HashMap<Chunk, Double> gapTable = new HashMap<>();
         gapTable.put(GOOMBA2, 0.3);
         gapTable.put(HILL, 0.3);
         gapTable.put(HIGHPIPEPLANT, 0.3);
@@ -239,7 +239,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         transitionMaps.put(GAP, gapTable);
 
         // HILL chunk transition table
-        HashMap<String, Double> hillTable = new HashMap<>();
+        HashMap<Chunk, Double> hillTable = new HashMap<>();
         hillTable.put(KOOPA3, 0.3);
         hillTable.put(GAP, 0.3);
         hillTable.put(LOWPIPE, 0.3);
@@ -247,7 +247,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         transitionMaps.put(HILL, hillTable);
 
         // LOWPIPE chunk transition table
-        HashMap<String, Double> lowPipeTable = new HashMap<>();
+        HashMap<Chunk, Double> lowPipeTable = new HashMap<>();
         lowPipeTable.put(HILL, 0.3);
         lowPipeTable.put(GAP, 0.3);
         lowPipeTable.put(HIGHPIPEPLANT, 0.3);
@@ -255,7 +255,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         transitionMaps.put(LOWPIPE, lowPipeTable);
 
         // HIGHPIPE chunk transition table
-        HashMap<String, Double> highPipeTable = new HashMap<>();
+        HashMap<Chunk, Double> highPipeTable = new HashMap<>();
         highPipeTable.put(HILL, 0.3);
         highPipeTable.put(GAP, 0.3);
         highPipeTable.put(LOWPIPE, 0.3);
@@ -263,7 +263,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         transitionMaps.put(HIGHPIPE, highPipeTable);
 
         // LOWPIPEPLANT chunk transition table
-        HashMap<String, Double> lowPipePlantTable = new HashMap<>();
+        HashMap<Chunk, Double> lowPipePlantTable = new HashMap<>();
         lowPipePlantTable.put(RAMP, 0.3);
         lowPipePlantTable.put(GAP, 0.3);
         lowPipePlantTable.put(GOOMBA2, 0.3);
@@ -271,7 +271,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         transitionMaps.put(LOWPIPEPLANT, lowPipePlantTable);
 
         // HIGHPIPEPLANT chunk transition table
-        HashMap<String, Double> highPipePlantTable = new HashMap<>();
+        HashMap<Chunk, Double> highPipePlantTable = new HashMap<>();
         highPipePlantTable.put(HILL, 0.3);
         highPipePlantTable.put(GAP, 0.3);
         highPipePlantTable.put(MIX1, 0.3);
@@ -279,7 +279,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         transitionMaps.put(HIGHPIPEPLANT, highPipePlantTable);
 
         // GOOMBA1 chunk transition table
-        HashMap<String, Double> goomba1Table = new HashMap<>();
+        HashMap<Chunk, Double> goomba1Table = new HashMap<>();
         goomba1Table.put(PLAT, 0.3);
         goomba1Table.put(MIX2, 0.3);
         goomba1Table.put(LOWPIPE, 0.3);
@@ -287,7 +287,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         transitionMaps.put(GOOMBA1, goomba1Table);
 
         // GOOMBA2 chunk transition table
-        HashMap<String, Double> goomba2Table = new HashMap<>();
+        HashMap<Chunk, Double> goomba2Table = new HashMap<>();
         goomba2Table.put(HILL, 0.3);
         goomba2Table.put(GAP, 0.3);
         goomba2Table.put(LOWPIPE, 0.3);
@@ -295,7 +295,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         transitionMaps.put(GOOMBA2, goomba2Table);
 
         // KOOPA1 chunk transition table
-        HashMap<String, Double> koopaTable = new HashMap<>();
+        HashMap<Chunk, Double> koopaTable = new HashMap<>();
         koopaTable.put(HILL, 0.3);
         koopaTable.put(PLAT, 0.2);
         koopaTable.put(GAP, 0.1);
@@ -310,7 +310,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         transitionMaps.put(KOOPA3, koopaTable);
 
         // MIX1 chunk transition table
-        HashMap<String, Double> mixTable = new HashMap<>();
+        HashMap<Chunk, Double> mixTable = new HashMap<>();
         mixTable.put(EMPTY, 0.2);
         mixTable.put(HI_GROUND, 0.2);
         mixTable.put(PLAT, 0.2);
@@ -322,7 +322,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         transitionMaps.put(MIX2, mixTable);
 
         // EMPTY chunk transition table
-        HashMap<String, Double> emptyTable = new HashMap<>();
+        HashMap<Chunk, Double> emptyTable = new HashMap<>();
         emptyTable.put(GOOMBA1, 0.1);
         emptyTable.put(GOOMBA2, 0.1);
         emptyTable.put(KOOPA1, 0.1);
@@ -334,7 +334,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         transitionMaps.put(EMPTY, emptyTable);
 
         // RAMP chunk transition table
-        HashMap<String, Double> rampTable = new HashMap<>();
+        HashMap<Chunk, Double> rampTable = new HashMap<>();
         rampTable.put(GOOMBA1, 0.1);
         rampTable.put(GOOMBA2, 0.1);
         rampTable.put(KOOPA1, 0.2);
@@ -344,7 +344,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         transitionMaps.put(RAMP, rampTable);
 
         // START chunk transition table
-        HashMap<String, Double> startTable = new HashMap<>();
+        HashMap<Chunk, Double> startTable = new HashMap<>();
         startTable.put(EMPTY, 1.0);
         transitionMaps.put(START, startTable);
     }
@@ -360,9 +360,9 @@ public class LevelGenerator implements MarioLevelGenerator {
      * @param lastChunk The current chunk to base the next one on
      * @return A String representing the selected chunk
      */
-    private String getNextChunk(String lastChunk) {
+    private Chunk getNextChunk(Chunk lastChunk) {
         // Map of weights of next chunks
-        HashMap<String, Double> weights = transitionMaps.get(lastChunk);
+        HashMap<Chunk, Double> weights = transitionMaps.get(lastChunk);
 
         // Get total weight of all choices
         double weightSum = 0;
@@ -375,7 +375,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         double cumulativeWeight = 0;
 
         // Select chunk based on random value
-        for (String chunk : weights.keySet()) {
+        for (Chunk chunk : weights.keySet()) {
             // Accumulate weight of next chunk
             cumulativeWeight += weights.get(chunk);
 
@@ -390,43 +390,20 @@ public class LevelGenerator implements MarioLevelGenerator {
     }
 
     /**
-     * Get the height of the given chunk
-     * @param chunk The level chunk to measure
-     * @return The height (how tall in blocks) of the chunk
-     */
-    private int getChunkHeight(String chunk) {
-        int numLines = 1;
-
-        // Iterate over chunk, one char at a time
-        for (char c : chunk.toCharArray()) {
-            if (c == '\n') {
-                numLines++;
-            }
-        }
-
-        return numLines;
-    }
-
-    /**
      * Iterates through the characters of the string chunk and add them as
      * blocks/enemies to the level model's map
      * @param chunk The string that describes a chunk of blocks to add
      */
-    private void addChunkToMap(String chunk) {
+    private void addChunkToMap(Chunk chunk) {
         // Coords to write character to in map
         int x = cursorPos;
-        int y = marioLevelModel.getHeight() - getChunkHeight(chunk);
+        int y = marioLevelModel.getHeight() - chunk.getHeight();
 
         // Iterate over chunk, one char at a time
-        for (char block : chunk.toCharArray()) {
-            // Go to next row in level map if newline, else write block and go
-            // to next column in level map
-            if (block == '\n') {
-                y++;
-                x = cursorPos;
-            } else {
-                marioLevelModel.setBlock(x, y, block);
-                x++;
+        char[][] blocks = chunk.getBlocks();
+        for (int i = 0; i < chunk.getWidth(); i++) {
+            for (int j = 0; j < chunk.getHeight(); j++) {
+                marioLevelModel.setBlock(x + i, y + j, blocks[i][j]);
             }
         }
 
@@ -465,7 +442,7 @@ public class LevelGenerator implements MarioLevelGenerator {
 
         // Store the given model so other methods have access
         this.marioLevelModel = model;
-        String currentChunk = START;
+        Chunk currentChunk = START;
 
         // Set everything in the map to empty
         model.setRectangle(0, 0, model.getWidth(), model.getHeight(), MarioLevelModel.EMPTY);
