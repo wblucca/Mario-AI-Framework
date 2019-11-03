@@ -412,6 +412,15 @@ public class LevelGenerator implements MarioLevelGenerator {
         return lvlRows;
     }
 
+    private ArrayList<Chunk> getUniqueChunks(Chunk level) {
+        int col = 0;
+
+        // Advance col past Mario in level
+        while (col < level.getWidth()) {}
+
+        return null;
+    }
+
     @Override
     public String getGeneratedLevel(MarioLevelModel model, MarioTimer timer) {
         createHash();
@@ -436,7 +445,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         System.out.println(model.getMap());
 
         try {
-            Chunk fileChunk = new Chunk(readFileList("levels/notchParam/lvl-1.txt"));
+            Chunk fileChunk = new Chunk(readFileList("levels/notchParam/lvl-2.txt"));
             System.out.println(fileChunk);
         } catch (Exception e) {
             e.printStackTrace();
