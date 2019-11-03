@@ -414,7 +414,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         }
 
         // Update generation cursor position
-        cursorPos = x;
+        cursorPos += chunk.getWidth();
     }
 
     /*
