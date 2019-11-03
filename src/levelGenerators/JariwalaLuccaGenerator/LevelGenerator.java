@@ -69,149 +69,155 @@ public class LevelGenerator implements MarioLevelGenerator {
             "XXXX"
     });
 
-    private final String PLAT = "" +
-            "-SSSSS-" + "\n" +
-            "-------" + "\n" +
-            "-------" + "\n" +
-            "-------" + "\n" +
-            "-------";
+    private final Chunk PLAT = new Chunk(new String[]{
+            "-SSSSS-",
+            "-------",
+            "-------",
+            "-------",
+            "-------",
+            "-------"
+    });
 
-    private final String GAP = "---";
+    private final Chunk GAP = new Chunk(new String[] {
+        "---"
+    });
 
-    private final String HILL = "" +
-            "----#--#----" + "\n" +
-            "---##--##---" + "\n" +
-            "--###--###--" + "\n" +
-            "-####--####-" + "\n" +
-            "#####--#####" + "\n" +
-            "XXXXX--XXXXX" + "\n" +
-            "XXXXX--XXXXX";
+    private final Chunk HILL = new Chunk(new String[] {
+            "-----#--#-----",
+            "----##--##----",
+            "---###--###---",
+            "--####--####--",
+            "-#####--#####-",
+            "XXXXXX--XXXXXX",
+            "XXXXXX--XXXXXX"
+    });
 
-    private final String FLAG = "" +
-            "-----------" + "\n" +
-            "-F---------" + "\n" +
-            "-#---------" + "\n" +
-            "XXXXXXXXXXXX" + "\n" +
-            "XXXXXXXXXXXX";
+    private final Chunk FLAG = new Chunk(new String[] {
+            "------------",
+            "-F----------",
+            "-#----------",
+            "XXXXXXXXXXXX",
+            "XXXXXXXXXXXX"
+    });
 
-    private final String START = "" +
-            "---" + "\n" +
-            "---" + "\n" +
-            "-M-" + "\n" +
-            "XXX" + "\n" +
-            "XXX";
+    private final Chunk START = new Chunk(new String[] {
+            "---",
+            "---",
+            "-M-",
+            "XXX",
+            "XXX"
+    });
 
-    private final String LOWPIPE = "" +
-            "----" + "\n" +
-            "-tt-" + "\n" +
-            "-tt-" + "\n" +
-            "XXXX" + "\n" +
-            "XXXX";
+    private final Chunk LOWPIPE = new Chunk(new String[] {
+            "----",
+            "-tt-",
+            "-tt-",
+            "XXXX",
+            "XXXX"
+    });
 
-    private final String HIGHPIPE = "" +
-            "-tt-" + "\n" +
-            "-tt-" + "\n" +
-            "-tt-" + "\n" +
-            "XXXX" + "\n" +
-            "XXXX";
+    private final Chunk HIGHPIPE = new Chunk(new String[] {
+            "-tt-",
+            "-tt-",
+            "-tt-",
+            "XXXX",
+            "XXXX"
+    });
 
-    private final String LOWPIPEPLANT = "" +
-            "----" + "\n" +
-            "-TT-" + "\n" +
-            "-TT-" + "\n" +
-            "XXXX" + "\n" +
-            "XXXX";
+    private final Chunk LOWPIPEPLANT = new Chunk(new String[] {
+            "----",
+            "-TT-",
+            "-TT-",
+            "XXXX",
+            "XXXX"
+    });
 
-    private final String HIGHPIPEPLANT = "" +
-            "-TT-" + "\n" +
-            "-TT-" + "\n" +
-            "-TT-" + "\n" +
-            "XXXX" + "\n" +
-            "XXXX";
+    private final Chunk HIGHPIPEPLANT = new Chunk(new String[] {
+            "-TT-",
+            "-TT-",
+            "-TT-",
+            "XXXX",
+            "XXXX"
+    });
 
-    private final String GOOMBA1 = "" +
-            "-------" + "\n" +
-            "-------" + "\n" +
-            "-g--g--" + "\n" +
-            "XXXXXXX" + "\n" +
-            "XXXXXXX";
+    private final Chunk GOOMBA1 = new Chunk(new String[] {
+            "-------",
+            "-------",
+            "-g--g--",
+            "XXXXXXX",
+            "XXXXXXX"
+    });
 
-    private final String GOOMBA2 = "" +
-            "--SSS--" + "\n" +
-            "-------" + "\n" +
-            "-g-g-g-" + "\n" +
-            "XXXXXXX" + "\n" +
-            "XXXXXXX";
+    private final Chunk GOOMBA2 = new Chunk(new String[] {
+            "--SSS--",
+            "-------",
+            "-------",
+            "-g-g-g-",
+            "XXXXXXX",
+            "XXXXXXX"
+    });
 
-    private final String KOOPA1 = "" +
-            "-------" + "\n" +
-            "-------" + "\n" +
-            "-r-g-g-" + "\n" +
-            "XXXXXXX" + "\n" +
-            "XXXXXXX";
+    private final Chunk KOOPA1 = new Chunk(new String[] {
+            "-------",
+            "-------",
+            "-r-g-g-",
+            "XXXXXXX",
+            "XXXXXXX"
+    });
 
-    private final String KOOPA2 = "" +
-            "-------" + "\n" +
-            "-------" + "\n" +
-            "--k-k--" + "\n" +
-            "XXXXXXX" + "\n" +
-            "XXXXXXX";
+    private final Chunk KOOPA2 = new Chunk(new String[] {
+            "-------",
+            "-------",
+            "--k-k--",
+            "XXXXXXX",
+            "XXXXXXX"
+    });
 
-    private final String KOOPA3 = "" +
-            "---R---" + "\n" +
-            "--SSS--" + "\n" +
-            "-------" + "\n" +
-            "XXXXXXX" + "\n" +
-            "XXXXXXX";
+    private final Chunk KOOPA3 = new Chunk(new String[] {
+            "---R---",
+            "--SSS--",
+            "-------",
+            "-------",
+            "-------",
+            "XXXXXXX",
+            "XXXXXXX"
+    });
 
-    private final String MIX1 = "" +
-            "---!--R---" + "\n" +
-            "-SS---SS--" + "\n" +
-            "-----r---o" + "\n" +
-            "XXXXXXXXXX" + "\n" +
-            "XXXXXXXXXX";
+    private final Chunk MIX1 = new Chunk(new String[] {
+            "---!--R---",
+            "-SS---SS--",
+            "----------",
+            "----------",
+            "-----r---o",
+            "XXXXXXXXXX",
+            "XXXXXXXXXX"
+    });
 
-    private final String MIX2 = "" +
-            "----------" + "\n" +
-            "-oo------!" + "\n" +
-            "--g-%%--g-" + "\n" +
-            "XXX-||-XXX" + "\n" +
-            "XXX-||-XXX";
+    private final Chunk MIX2 = new Chunk(new String[] {
+            "----------",
+            "-oo------!",
+            "----------",
+            "--g-%%--g-",
+            "XXX-||-XXX",
+            "XXX-||-XXX"
+    });
 
-    private final String EMPTY = "" +
-            "----------" + "\n" +
-            "----------" + "\n" +
-            "----------" + "\n" +
-            "XXXXXXXXXX" + "\n" +
-            "XXXXXXXXXX";
+    private final Chunk EMPTY = new Chunk(new String[] {
+            "----------",
+            "----------",
+            "----------",
+            "XXXXXXXXXX",
+            "XXXXXXXXXX"
+    });
 
-    private final String RAMP = "" +
-            "--------##" + "\n" +
-            "-------###" + "\n" +
-            "------####" + "\n" +
-            "XXXXXXXXXX" + "\n" +
-            "XXXXXXXXXX";
-
-    private final String[] LEVEL_CHUNKS = {
-            HI_GROUND,
-            PLAT,
-            GAP,
-            HILL,
-            LOWPIPE,
-            HIGHPIPE,
-            LOWPIPEPLANT,
-            HIGHPIPEPLANT,
-            GOOMBA1,
-            GOOMBA2,
-            KOOPA1,
-            KOOPA2,
-            KOOPA3,
-            MIX1,
-            MIX2,
-            EMPTY,
-            RAMP,
-            START
-    };
+    private final Chunk RAMP = new Chunk(new String[] {
+            "---------#",
+            "--------##",
+            "-------###",
+            "------####",
+            "XXXXXXXXXX",
+            "XXXXXXXXXX"
+    });
 
     public void createHash() {
         // HI_GROUND chunk transition table
