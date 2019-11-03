@@ -433,7 +433,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         }
 
         // Loop through the remainder of the level
-        while (col_start < level.getWidth()) {
+        while (col_end < level.getWidth()) {
             // Advance past boring ground columns
             while (level.checkGround(col_start)) {
                 col_start++;
@@ -442,7 +442,9 @@ public class LevelGenerator implements MarioLevelGenerator {
             col_end = col_start + 1;
 
             // Advance past exciting non-ground columns
-            while (level.checkGround(col_end) && level.checkGround(col_end + 1)) {
+            while (col_end + 1 < level.getWidth() &&
+                    level.checkGround(col_end) &&
+                    level.checkGround(col_end + 1)) {
                 col_end++;
             }
         }
@@ -583,6 +585,11 @@ class Chunk {
 
     public boolean checkGround(int x) {
         char[] col = getColumn(x);
+
+        if (col == null) {
+            return false;
+        }
+
         for(int i = 0; i < col.length; i++) {
             if (col[i] != 'X' || col[i] != '-') {
                 return false;
