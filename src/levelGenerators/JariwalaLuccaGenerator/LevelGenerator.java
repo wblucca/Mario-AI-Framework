@@ -75,6 +75,7 @@ public class LevelGenerator implements MarioLevelGenerator {
             "-------",
             "-------",
             "-------",
+            "-------",
             "-------"
     });
 
@@ -152,6 +153,8 @@ public class LevelGenerator implements MarioLevelGenerator {
             "--SSS--",
             "-------",
             "-------",
+            "-------",
+            "-------",
             "-g-g-g-",
             "XXXXXXX",
             "XXXXXXX"
@@ -179,6 +182,7 @@ public class LevelGenerator implements MarioLevelGenerator {
             "-------",
             "-------",
             "-------",
+            "-------",
             "XXXXXXX",
             "XXXXXXX"
     });
@@ -186,6 +190,7 @@ public class LevelGenerator implements MarioLevelGenerator {
     private final Chunk MIX1 = new Chunk(new String[] {
             "---!--R---",
             "-SS---SS--",
+            "----------",
             "----------",
             "----------",
             "-----r---o",
@@ -452,6 +457,7 @@ public class LevelGenerator implements MarioLevelGenerator {
 
         // Set everything in the map to empty
         model.setRectangle(0, 0, model.getWidth(), model.getHeight(), MarioLevelModel.EMPTY);
+
 
         addChunkToMap(currentChunk);
 
