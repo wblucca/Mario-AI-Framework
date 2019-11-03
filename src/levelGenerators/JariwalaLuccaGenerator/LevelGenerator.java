@@ -4,9 +4,7 @@ import engine.core.MarioLevelGenerator;
 import engine.core.MarioLevelModel;
 import engine.core.MarioTimer;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -413,67 +411,59 @@ public class LevelGenerator implements MarioLevelGenerator {
     }
 
     private ArrayList<Chunk> getUniqueChunks(Chunk level) {
-        int col_start = 0;
-        int col_end = 0;
+        int colStart = 1;
+        int colEnd = 1;
+        int lvlWidth = level.getWidth();
 
         ArrayList<Chunk> uniqueChunks = new ArrayList<>();
 
-        // Advance col past Mario in level
-        Boolean foundMario = false;
-        while (col_start < level.getWidth() && !foundMario) {
-            // Check whole column for Mario
-            char[] column = level.getColumn(col_start);
-            for (char c : column) {
-                if (c == MarioLevelModel.MARIO_START) {
-                    foundMario = true;
-                }
-            }
-
-            col_start++;
-        }
-
-        // Loop through the remainder of the level
-        while (col_end < level.getWidth()) {
+        // Loop through the level entirety
+        while (colStart < lvlWidth - 1 && colEnd < lvlWidth - 1) {
             // Advance until non-ground column is reached
-            while (level.checkGround(col_start)) {
-                col_start++;
+            while (level.checkGround(colStart)) {
+                colStart++;
             }
 
-            col_end = col_start;
+            colEnd = colStart;
 
             // Advance until two consecutive ground columns or end of level
-            Boolean twoGroundColumns = false;
+            boolean twoGroundColumns = false;
             do {
-                col_end++;
+                colEnd++;
 
-                if (level.checkGround(col_end) &&
-                    level.checkGround(col_end + 1)) {
+                if (level.checkGround(colEnd) &&
+                    level.checkGround(colEnd + 1)) {
                     twoGroundColumns = true;
                 }
-            } while (col_end + 1 < level.getWidth() && !twoGroundColumns);
+            } while (colEnd + 2 < lvlWidth && !twoGroundColumns);
 
-            // Selected "unique" chunk columns: [col_start, col_end)
-            int chunkWidth = col_end - col_start;
+            if (colEnd >= lvlWidth) {
+                colEnd = lvlWidth - 1;
+            }
+
+            // Selected "unique" chunk columns' range: [colStart, colEnd)
+            int chunkWidth = colEnd - colStart;
 
             // Create unique chunk from selection (+/- 1 column on either side)
             char[][] uniqueChunk = new char[chunkWidth + 2][level.getHeight()];
 
-            // Include one column to the left
-            uniqueChunk[0] = level.getColumn(col_start - 1);
+            // Copy one column to the left
+            copyCharArr(level.getColumn(colStart - 1), uniqueChunk[0]);
 
-            // Include selected columns [col_start, col_end)
+            // Copy selected columns [colStart, colEnd)
             for (int i = 0; i < chunkWidth; i++) {
-                uniqueChunk[i] = level.getColumn(col_start + i);
+                copyCharArr(level.getColumn(colStart + i), uniqueChunk[i + 1]);
             }
 
-            // Include one column to the right
-            uniqueChunk[chunkWidth + 1] = level.getColumn(col_end);
+            // Copy one column to the right
+            copyCharArr(level.getColumn(colEnd), uniqueChunk[chunkWidth + 1]);
 
             // Add to the list!
             uniqueChunks.add(new Chunk(uniqueChunk));
+            colStart = colEnd + 2;
         }
 
-        return null;
+        return uniqueChunks;
     }
 
     @Override
@@ -506,9 +496,8 @@ public class LevelGenerator implements MarioLevelGenerator {
                     if(!fileChunks.contains(c)) {
                         fileChunks.add(c);
                     }
-                };
+                }
             }
-            //System.out.println(fileChunk);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -519,6 +508,11 @@ public class LevelGenerator implements MarioLevelGenerator {
     @Override
     public String getGeneratorName() {
         return "JariwalaLuccaGenerator";
+    }
+
+    private void copyCharArr(char[] src, char[] dest) {
+        int len = Math.min(src.length, dest.length);
+        System.arraycopy(src, 0, dest, 0, len);
     }
 
 }
@@ -579,7 +573,7 @@ class Chunk {
     }
 
     /**
-     * Get a specified column of blocks in the chunk
+     * Get a copy of the specified column of blocks in the chunk
      * @param x The x-coordinate of the column
      * @return The column at this x-coordinate, or null
      * if the column does not exist
@@ -593,8 +587,13 @@ class Chunk {
 
     @Override
     public int hashCode() {
-
         return toString().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+
+        return this.toString().equals(other.toString());
     }
 
     @Override
@@ -619,7 +618,7 @@ class Chunk {
         }
 
         for(int i = 0; i < col.length; i++) {
-            if (col[i] != 'X' || col[i] != '-') {
+            if (col[i] != 'X' && col[i] != '-') {
                 return false;
             }
         }
