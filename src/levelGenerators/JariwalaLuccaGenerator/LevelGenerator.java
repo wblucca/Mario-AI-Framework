@@ -434,19 +434,43 @@ public class LevelGenerator implements MarioLevelGenerator {
 
         // Loop through the remainder of the level
         while (col_end < level.getWidth()) {
-            // Advance past boring ground columns
+            // Advance until non-ground column is reached
             while (level.checkGround(col_start)) {
                 col_start++;
             }
 
-            col_end = col_start + 1;
+            col_end = col_start;
 
-            // Advance past exciting non-ground columns
-            while (col_end + 1 < level.getWidth() &&
-                    level.checkGround(col_end) &&
-                    level.checkGround(col_end + 1)) {
+            // Advance until two consecutive ground columns or end of level
+            Boolean twoGroundColumns = false;
+            do {
                 col_end++;
+
+                if (level.checkGround(col_end) &&
+                    level.checkGround(col_end + 1)) {
+                    twoGroundColumns = true;
+                }
+            } while (col_end + 1 < level.getWidth() && !twoGroundColumns);
+
+            // Selected "unique" chunk columns: [col_start, col_end)
+            int chunkWidth = col_end - col_start;
+
+            // Create unique chunk from selection (+/- 1 column on either side)
+            char[][] uniqueChunk = new char[chunkWidth + 2][level.getHeight()];
+
+            // Include one column to the left
+            uniqueChunk[0] = level.getColumn(col_start - 1);
+
+            // Include selected columns [col_start, col_end)
+            for (int i = 0; i < chunkWidth; i++) {
+                uniqueChunk[i] = level.getColumn(col_start + i);
             }
+
+            // Include one column to the right
+            uniqueChunk[chunkWidth + 1] = level.getColumn(col_end);
+
+            // Add to the list!
+            uniqueChunks.add(new Chunk(uniqueChunk));
         }
 
         return null;
