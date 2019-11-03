@@ -4,12 +4,7 @@ import engine.core.MarioLevelGenerator;
 import engine.core.MarioLevelModel;
 import engine.core.MarioTimer;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class LevelGenerator implements MarioLevelGenerator {
 
@@ -174,8 +169,8 @@ public class LevelGenerator implements MarioLevelGenerator {
             "----------" + "\n" +
             "-oo------!" + "\n" +
             "--g-%%--g-" + "\n" +
-            "XXX-||-XXX" + "\n" +
-            "XXX-||-XXX";
+            "XXX----XXX" + "\n" +
+            "XXX----XXX";
 
     private final String EMPTY = "" +
             "----------" + "\n" +
@@ -431,31 +426,6 @@ public class LevelGenerator implements MarioLevelGenerator {
 
         // Update generation cursor position
         cursorPos = x;
-    }
-
-    /*
-    public static String[][] readFile(String filename) throws Exception {
-        BufferedReader fileInput = new BufferedReader(new FileReader("lvl-1.txt"));
-        fileInput.readLine().length();
-
-
-        String[][] s = new String[fileInput.readLine().length()][5];
-        String line;
-        while ((line = fileInput.readLine()) != null) {
-
-        }
-        fileInput.close();
-        return s;
-    }
-*/
-    public static ArrayList<String> readFileList(String filepath) throws Exception {
-        Scanner scanner = new Scanner(new File(filepath));
-        ArrayList<String> lvlRows = new ArrayList<String>();
-        while (scanner.hasNext()) {
-            lvlRows.add(scanner.next());
-        }
-        scanner.close();
-        return lvlRows;
     }
 
     @Override
