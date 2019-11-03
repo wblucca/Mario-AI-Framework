@@ -447,7 +447,11 @@ public class LevelGenerator implements MarioLevelGenerator {
         try {
             ArrayList<Chunk> fileChunks = new ArrayList<>();
             for (int i = 1; i < 1001; i++) {
-                 fileChunks.add(new Chunk(readFileList("levels/notchParam/lvl-" + i + ".txt")));
+                for (Chunk c : getUniqueChunks(new Chunk(readFileList("levels/notchParam/lvl-" + i + ".txt")))) {
+                    if(!fileChunks.contains(c)) {
+                        fileChunks.add(c);
+                    }
+                };
             }
             //System.out.println(fileChunk);
         } catch (Exception e) {
