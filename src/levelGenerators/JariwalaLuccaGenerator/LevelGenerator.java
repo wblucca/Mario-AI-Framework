@@ -575,4 +575,14 @@ class Chunk {
         return blocksAsStr;
     }
 
+    public boolean checkGround(int x) {
+        char[] col = getColumn(x);
+        for(int i = 0; i < col.length; i++) {
+            if (col[i] != 'X' || col[i] != '-') {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
