@@ -351,7 +351,7 @@ public class LevelGenerator implements MarioLevelGenerator {
             }
         }
         else {
-            HashMap<Chunk, Double> inner = new HashMap<Chunk, Double>();
+            HashMap<Chunk, Double> inner = new HashMap<>();
             inner.put(next, 1.0);
             transitionMaps.put(prev, inner);
         }
@@ -473,21 +473,24 @@ public class LevelGenerator implements MarioLevelGenerator {
             int chunkWidth = colEnd - colStart;
 
             // Create unique chunk from selection (+/- 1 column on either side)
-            char[][] uniqueChunk = new char[chunkWidth + 2][level.getHeight()];
+            char[][] uniqueBlocks = new char[chunkWidth + 2][level.getHeight()];
 
             // Copy one column to the left
-            copyCharArr(level.getColumn(colStart - 1), uniqueChunk[0]);
+            copyCharArr(level.getColumn(colStart - 1), uniqueBlocks[0]);
 
             // Copy selected columns [colStart, colEnd)
             for (int i = 0; i < chunkWidth; i++) {
-                copyCharArr(level.getColumn(colStart + i), uniqueChunk[i + 1]);
+                copyCharArr(level.getColumn(colStart + i), uniqueBlocks[i + 1]);
             }
 
             // Copy one column to the right
-            copyCharArr(level.getColumn(colEnd), uniqueChunk[chunkWidth + 1]);
+            copyCharArr(level.getColumn(colEnd), uniqueBlocks[chunkWidth + 1]);
 
-            // Add to the list!
-            uniqueChunks.add(new Chunk(uniqueChunk));
+            // Add to the list if it does not contain a flag
+            Chunk uniqueChunk = new Chunk(uniqueBlocks);
+            if (!uniqueChunk.contains(MarioLevelModel.MARIO_EXIT)) {
+                uniqueChunks.add(uniqueChunk);
+            }
             colStart = colEnd + 2;
         }
 
@@ -677,6 +680,22 @@ class Chunk {
         // Contains only ground and air
         // Only return true if some ground was found
         return foundGround;
+    }
+
+    /**
+     * Checks to see if this Chunk contains any of the specified block
+     * @param blockType Char representing block type to check for
+     * @return True if any block in the chunk is of the given type, false otherwise
+     */
+    boolean contains(char blockType) {
+        for (int x = 0; x < getWidth(); x++) {
+            for (int y = 0; y < getHeight(); y++) {
+                if (blocks[x][y] == blockType) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
