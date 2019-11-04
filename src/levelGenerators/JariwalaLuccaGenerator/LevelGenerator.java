@@ -15,9 +15,6 @@ public class LevelGenerator implements MarioLevelGenerator {
     // Markov table
     HashMap<Chunk, HashMap<Chunk, Double>> transitionMaps = new HashMap<>();
 
-    // List of all unique chunks
-    ArrayList<Chunk> fileChunks = new ArrayList<>();
-
 
     // Hand-made level chunks
     // Each occupies a rectangular area positioned along the bottom of the map
@@ -342,7 +339,6 @@ public class LevelGenerator implements MarioLevelGenerator {
         transitionMaps.put(START, startTable);
     }
 
-    HashMap<Chunk, Double> inner = new HashMap<Chunk, Double>();
 
     private void addChunkPairToHash(Chunk prev, Chunk next) {
         if(transitionMaps.containsKey(prev)) {
@@ -360,8 +356,6 @@ public class LevelGenerator implements MarioLevelGenerator {
             transitionMaps.put(prev, inner);
         }
 
-
-
     }
 
     // The level model for this level
@@ -376,6 +370,14 @@ public class LevelGenerator implements MarioLevelGenerator {
      * @return A String representing the selected chunk
      */
     private Chunk getNextChunk(Chunk lastChunk) {
+        // In case of sink code, switch to an already existing chunk
+        if(transitionMaps.containsKey(lastChunk)) {
+            for ( Chunk chunk : transitionMaps.keySet() ) {
+                lastChunk = chunk;
+                break;
+            }
+        }
+
         // Map of weights of next chunks
         HashMap<Chunk, Double> weights = transitionMaps.get(lastChunk);
 
@@ -494,7 +496,20 @@ public class LevelGenerator implements MarioLevelGenerator {
 
     @Override
     public String getGeneratedLevel(MarioLevelModel model, MarioTimer timer) {
-        createHandmadeHash();
+        try {
+            for (int i = 1; i < 1001; i++) {
+                Chunk prevChunk = null;
+                for (Chunk c : getUniqueChunks(new Chunk(readFileList("levels/notchParam/lvl-" + i + ".txt")))) {
+                    // Add this (prev,next) pair to the Markov chain hashmaps
+                    if (prevChunk != null) {
+                        addChunkPairToHash(prevChunk, c);
+                    }
+                    prevChunk = c;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // Store the given model so other methods have access
         this.marioLevelModel = model;
@@ -515,25 +530,7 @@ public class LevelGenerator implements MarioLevelGenerator {
 
         System.out.println(model.getMap());
 
-        try {
-            for (int i = 1; i < 1001; i++) {
-                Chunk prevChunk = null;
-                for (Chunk c : getUniqueChunks(new Chunk(readFileList("levels/notchParam/lvl-" + i + ".txt")))) {
-                    // Add this unique chunk to the set
-                    if(!fileChunks.contains(c)) {
-                        fileChunks.add(c);
-                    }
 
-                    // Add this (prev,next) pair to the Markov chain hashmaps
-                    if (prevChunk != null) {
-                        addChunkPairToHash(prevChunk, c);
-                    }
-                    prevChunk = c;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         return model.getMap();
     }
