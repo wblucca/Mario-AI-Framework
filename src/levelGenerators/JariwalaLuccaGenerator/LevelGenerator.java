@@ -612,17 +612,21 @@ class Chunk {
 
     public boolean checkGround(int x) {
         char[] col = getColumn(x);
+        boolean foundGround = false;
 
         if (col == null) {
             return false;
         }
 
-        for(int i = 0; i < col.length; i++) {
+        for (int i = 0; i < col.length; i++) {
             if (col[i] != 'X' && col[i] != '-') {
                 return false;
             }
+            if (col[i] == 'X') {
+                foundGround = true;
+            }
         }
-        return true;
+        return foundGround;
     }
 
 }
