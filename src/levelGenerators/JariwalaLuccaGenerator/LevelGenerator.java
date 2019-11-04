@@ -7,6 +7,7 @@ import engine.core.MarioTimer;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class LevelGenerator implements MarioLevelGenerator {
@@ -341,7 +342,25 @@ public class LevelGenerator implements MarioLevelGenerator {
         transitionMaps.put(START, startTable);
     }
 
+    HashMap<Chunk, Double> inner = new HashMap<Chunk, Double>();
+
     private void addChunkPairToHash(Chunk prev, Chunk next) {
+        if(transitionMaps.containsKey(prev)) {
+            if (transitionMaps.get(prev).containsKey(next)) {
+                Object newval = transitionMaps.get(prev).get(next);
+                transitionMaps.get(prev).replace(next, newval + 1.0);
+            }
+            else {
+                transitionMaps.get(prev).put(next, 0.0);
+            }
+        }
+        else {
+            HashMap<Chunk, Double> inner = new HashMap<Chunk, Double>();
+            inner.put(next, 1.0);
+            transitionMaps.put(prev, inner);
+        }
+
+
 
     }
 
