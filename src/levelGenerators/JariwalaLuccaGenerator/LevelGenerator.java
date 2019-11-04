@@ -371,7 +371,7 @@ public class LevelGenerator implements MarioLevelGenerator {
      */
     private Chunk getNextChunk(Chunk lastChunk) {
         // In case of sink code, switch to an already existing chunk
-        if(transitionMaps.containsKey(lastChunk)) {
+        if(!transitionMaps.containsKey(lastChunk)) {
             for ( Chunk chunk : transitionMaps.keySet() ) {
                 lastChunk = chunk;
                 break;
@@ -511,6 +511,7 @@ public class LevelGenerator implements MarioLevelGenerator {
             e.printStackTrace();
         }
 
+
         // Store the given model so other methods have access
         this.marioLevelModel = model;
         Chunk currentChunk = START;
@@ -524,6 +525,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         while (cursorPos < model.getWidth()-8) {
             currentChunk = getNextChunk(currentChunk);
             addChunkToMap(currentChunk);
+            System.out.println(currentChunk);
         }
 
         addChunkToMap(FLAG);
@@ -664,7 +666,7 @@ class Chunk {
         // Check one block at a time
         for (int i = 0; i < col.length; i++) {
             // Neither ground nor air
-            if (col[i] != 'X' && col[i] != '-') {
+            if (col[i] != 'X' && col[i] != '-' && col[i] != 'F') {
                 return false;
             }
             if (col[i] == 'X') {
