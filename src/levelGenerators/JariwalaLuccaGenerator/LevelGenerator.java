@@ -76,7 +76,6 @@ public class LevelGenerator implements MarioLevelGenerator {
             "------------",
             "-F----------",
             "-#----------",
-            "XXXXXXXXXXXX",
             "XXXXXXXXXXXX"
     });
 
@@ -84,7 +83,6 @@ public class LevelGenerator implements MarioLevelGenerator {
             "---",
             "---",
             "-M-",
-            "XXX",
             "XXX"
     });
 
@@ -203,7 +201,7 @@ public class LevelGenerator implements MarioLevelGenerator {
             "XXXXXXXXXX"
     });
 
-    public void createHandmadeHash() {
+    public void createHandmadeHashmap() {
         // HI_GROUND chunk transition table
         HashMap<Chunk, Double> hiGroundTable = new HashMap<>();
         hiGroundTable.put(HILL, 0.3);
@@ -497,8 +495,10 @@ public class LevelGenerator implements MarioLevelGenerator {
         return uniqueChunks;
     }
 
-    @Override
-    public String getGeneratedLevel(MarioLevelModel model, MarioTimer timer) {
+    /**
+     * Creates the Markov chain transition table using Chunks from the input level data
+     */
+    private void createAutomatedHashmap() {
         try {
             for (int i = 1; i < 1001; i++) {
                 Chunk prevChunk = null;
@@ -513,15 +513,19 @@ public class LevelGenerator implements MarioLevelGenerator {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
-
+    @Override
+    public String getGeneratedLevel(MarioLevelModel model, MarioTimer timer) {
         // Store the given model so other methods have access
         this.marioLevelModel = model;
+
+        createAutomatedHashmap();
+
         Chunk currentChunk = START;
 
         // Set everything in the map to empty
         model.setRectangle(0, 0, model.getWidth(), model.getHeight(), MarioLevelModel.EMPTY);
-
 
         addChunkToMap(currentChunk);
 
@@ -534,8 +538,6 @@ public class LevelGenerator implements MarioLevelGenerator {
         addChunkToMap(FLAG);
 
         System.out.println(model.getMap());
-
-
 
         return model.getMap();
     }
