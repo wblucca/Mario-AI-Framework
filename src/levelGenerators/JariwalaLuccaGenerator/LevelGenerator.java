@@ -510,6 +510,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         // Store the given model so other methods have access
         this.marioLevelModel = model;
 
+        //createHandmadeHashmap();
         createAutomatedHashmap();
 
         Chunk currentChunk = START;
@@ -519,12 +520,15 @@ public class LevelGenerator implements MarioLevelGenerator {
 
         addChunkToMap(currentChunk);
 
-        while (cursorPos < model.getWidth()-8) {
+        // Add Chunks until past the end of the level
+        while (cursorPos < model.getWidth()) {
             currentChunk = getNextChunk(currentChunk);
             addChunkToMap(currentChunk);
             System.out.println(currentChunk);
         }
 
+        // Go back to flag location and overwrite the FLAG Chunk where it belongs
+        cursorPos = model.getWidth() - FLAG.getWidth();
         addChunkToMap(FLAG);
 
         System.out.println(model.getMap());
