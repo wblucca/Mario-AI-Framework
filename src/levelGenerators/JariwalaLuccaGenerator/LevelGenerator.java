@@ -73,6 +73,11 @@ public class LevelGenerator implements MarioLevelGenerator {
     private final Chunk FLAG = new Chunk(new String[] {
             "------------",
             "------------",
+            "------------",
+            "------------",
+            "------------",
+            "------------",
+            "------------",
             "----------F-",
             "XXXXXXXXXXXX"
     });
