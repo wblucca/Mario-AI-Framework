@@ -14,6 +14,9 @@ public class LevelGenerator implements MarioLevelGenerator {
     // Markov table
     HashMap<Chunk, HashMap> transitionMaps = new HashMap<>();
 
+    // List of all unique chunks
+    ArrayList<Chunk> fileChunks = new ArrayList<>();
+
 
     // Hand-made level chunks
     // Each occupies a rectangular area positioned along the bottom of the map
@@ -202,7 +205,7 @@ public class LevelGenerator implements MarioLevelGenerator {
             "XXXXXXXXXX"
     });
 
-    public void createHash() {
+    public void createHandmadeHash() {
         // HI_GROUND chunk transition table
         HashMap<Chunk, Double> hiGroundTable = new HashMap<>();
         hiGroundTable.put(HILL, 0.3);
@@ -338,6 +341,10 @@ public class LevelGenerator implements MarioLevelGenerator {
         transitionMaps.put(START, startTable);
     }
 
+    private void addChunkPairToHash(Chunk prev, Chunk next) {
+
+    }
+
     // The level model for this level
     private MarioLevelModel marioLevelModel;
 
@@ -468,7 +475,7 @@ public class LevelGenerator implements MarioLevelGenerator {
 
     @Override
     public String getGeneratedLevel(MarioLevelModel model, MarioTimer timer) {
-        createHash();
+        createHandmadeHash();
 
         // Store the given model so other methods have access
         this.marioLevelModel = model;
@@ -490,7 +497,6 @@ public class LevelGenerator implements MarioLevelGenerator {
         System.out.println(model.getMap());
 
         try {
-            ArrayList<Chunk> fileChunks = new ArrayList<>();
             for (int i = 1; i < 1001; i++) {
                 for (Chunk c : getUniqueChunks(new Chunk(readFileList("levels/notchParam/lvl-" + i + ".txt")))) {
                     if(!fileChunks.contains(c)) {
@@ -592,7 +598,6 @@ class Chunk {
 
     @Override
     public boolean equals(Object other) {
-
         return this.toString().equals(other.toString());
     }
 
