@@ -1,3 +1,8 @@
+// Authors
+// Neer Jariwala
+// William Lucca
+// 3 November, 2019
+
 package levelGenerators.JariwalaLuccaGenerator;
 
 import engine.core.MarioLevelGenerator;
@@ -5,9 +10,9 @@ import engine.core.MarioLevelModel;
 import engine.core.MarioTimer;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class LevelGenerator implements MarioLevelGenerator {
@@ -58,7 +63,7 @@ public class LevelGenerator implements MarioLevelGenerator {
     });
 
     private final Chunk GAP = new Chunk(new String[] {
-        "---"
+            "---"
     });
 
     private final Chunk HILL = new Chunk(new String[] {
@@ -191,6 +196,16 @@ public class LevelGenerator implements MarioLevelGenerator {
             "XXXXXXXXXX"
     });
 
+    // The level model for this level
+    private MarioLevelModel marioLevelModel;
+
+    // The next x-coordinate to write to during generation
+    private int cursorPos = 0;
+
+    /**
+     * Creates the Markov chain transition table using our own handmade Chunks and
+     * transition probabilities for each
+     */
     public void createHandmadeHashmap() {
         // HI_GROUND chunk transition table
         HashMap<Chunk, Double> hiGroundTable = new HashMap<>();
@@ -327,7 +342,31 @@ public class LevelGenerator implements MarioLevelGenerator {
         transitionMaps.put(START, startTable);
     }
 
+    /**
+     * Creates the Markov chain transition table using Chunks from the input level data
+     */
+    private void createAutomatedHashmap() {
+        try {
+            for (int i = 1; i < 1001; i++) {
+                Chunk prevChunk = null;
+                for (Chunk c : getUniqueChunks(new Chunk(readFileList("levels/notchParam/lvl-" + i + ".txt")))) {
+                    // Add this (prev,next) pair to the Markov chain hashmaps
+                    if (prevChunk != null) {
+                        addChunkPairToHash(prevChunk, c);
+                    }
+                    prevChunk = c;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    /**
+     * Adds/increments an entry in the Markov transition table
+     * @param prev The Chunk that came before
+     * @param next The Chunk that came after
+     */
     private void addChunkPairToHash(Chunk prev, Chunk next) {
         if(transitionMaps.containsKey(prev)) {
             if (transitionMaps.get(prev).containsKey(next)) {
@@ -343,14 +382,7 @@ public class LevelGenerator implements MarioLevelGenerator {
             inner.put(next, 1.0);
             transitionMaps.put(prev, inner);
         }
-
     }
-
-    // The level model for this level
-    private MarioLevelModel marioLevelModel;
-
-    // The next x-coordinate to write to during generation
-    private int cursorPos = 0;
 
     /**
      * Selects a chunk based on the given previous chunk
@@ -360,7 +392,7 @@ public class LevelGenerator implements MarioLevelGenerator {
     private Chunk getNextChunk(Chunk lastChunk) {
         // In case of sink code, switch to an already existing chunk
         if(!transitionMaps.containsKey(lastChunk)) {
-            for ( Chunk chunk : transitionMaps.keySet() ) {
+            for (Chunk chunk : transitionMaps.keySet()) {
                 lastChunk = chunk;
                 break;
             }
@@ -416,16 +448,31 @@ public class LevelGenerator implements MarioLevelGenerator {
         cursorPos += chunk.getWidth();
     }
 
-    public static ArrayList<String> readFileList(String filepath) throws Exception {
+    /**
+     * Reads a text file and separates each line to be a list of Strings
+     * @param filepath The text file's relative path
+     * @return ArrayList of Strings for all the lines of the file
+     * @throws FileNotFoundException If it cannot find the specified file
+     */
+    public static ArrayList<String> readFileList(String filepath) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File(filepath));
-        ArrayList<String> lvlRows = new ArrayList<String>();
+
+        ArrayList<String> lvlRows = new ArrayList<>();
         while (scanner.hasNext()) {
             lvlRows.add(scanner.next());
         }
         scanner.close();
+
         return lvlRows;
     }
 
+    /**
+     * Examines a Chunk representing an entire level to find unique and identifiable Chunks.
+     * Reading column by column, chunks are delimited by two ground columns (containing
+     * nothing but ground and air)
+     * @param level The Chunk to search through for unique chunks
+     * @return ArrayList of found Chunks
+     */
     private ArrayList<Chunk> getUniqueChunks(Chunk level) {
         int colStart = 1;
         int colEnd = 1;
@@ -483,26 +530,6 @@ public class LevelGenerator implements MarioLevelGenerator {
         }
 
         return uniqueChunks;
-    }
-
-    /**
-     * Creates the Markov chain transition table using Chunks from the input level data
-     */
-    private void createAutomatedHashmap() {
-        try {
-            for (int i = 1; i < 1001; i++) {
-                Chunk prevChunk = null;
-                for (Chunk c : getUniqueChunks(new Chunk(readFileList("levels/notchParam/lvl-" + i + ".txt")))) {
-                    // Add this (prev,next) pair to the Markov chain hashmaps
-                    if (prevChunk != null) {
-                        addChunkPairToHash(prevChunk, c);
-                    }
-                    prevChunk = c;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
