@@ -537,27 +537,33 @@ public class LevelGenerator implements MarioLevelGenerator {
         // Store the given model so other methods have access
         this.marioLevelModel = model;
 
+        //////////////////////////////////////////////////////////////////////////
+        // Select whether to use handmade Chunks or automated Chunks from input //
+        //////////////////////////////////////////////////////////////////////////
+
         //createHandmadeHashmap();
         createAutomatedHashmap();
 
-        Chunk currentChunk = START;
+        //////////////////////////////////////////////////////////////////////////
 
         // Set everything in the map to empty
         model.setRectangle(0, 0, model.getWidth(), model.getHeight(), MarioLevelModel.EMPTY);
 
+        // Add Mario to the beginning
+        Chunk currentChunk = START;
         addChunkToMap(currentChunk);
 
         // Add Chunks until past the end of the level
         while (cursorPos < model.getWidth()) {
             currentChunk = getNextChunk(currentChunk);
             addChunkToMap(currentChunk);
-            System.out.println(currentChunk);
         }
 
         // Go back to flag location and overwrite the FLAG Chunk where it belongs
         cursorPos = model.getWidth() - FLAG.getWidth();
         addChunkToMap(FLAG);
 
+        // Print the generated map to the console
         System.out.println(model.getMap());
 
         return model.getMap();
