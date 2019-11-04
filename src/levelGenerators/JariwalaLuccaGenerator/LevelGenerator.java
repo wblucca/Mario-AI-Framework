@@ -524,6 +524,12 @@ public class LevelGenerator implements MarioLevelGenerator {
         return "JariwalaLuccaGenerator";
     }
 
+    /**
+     * Copies a source array of chars into a new given location in memory of
+     * the same (or smaller) size
+     * @param src The char array to copy
+     * @param dest The char array reference to store the copy in
+     */
     private void copyCharArr(char[] src, char[] dest) {
         int len = Math.min(src.length, dest.length);
         System.arraycopy(src, 0, dest, 0, len);
@@ -539,21 +545,37 @@ class Chunk {
     // All the blocks of the chunk (i.e. block[row][col])
     private char[][] blocks;
 
+    /**
+     * Constructs a Chunk from a 2D array of blocks
+     * @param blocks 2D array of block chars (row, col)
+     */
     public Chunk(char[][] blocks) {
         this.blocks = blocks;
     }
 
+    /**
+     * Constructs a Chunk from an array of strings representing the rows of the Chunk
+     * @param rows Rows of blocks as an array of Strings
+     */
     public Chunk(String[] rows) {
-        init(rows);
+        initFromRows(rows);
     }
 
+    /**
+     * Constructs a Chunk from an ArrayList of strings representing the rows of the Chunk
+     * @param rowsList Rowws of blocks as an ArrayList of Strings
+     */
     public Chunk(ArrayList<String> rowsList) {
         String[] rowsArray = new String[rowsList.size()];
         rowsList.toArray(rowsArray);
-        init(rowsArray);
+        initFromRows(rowsArray);
     }
 
-    private void init(String[] rows) {
+    /**
+     * Sets blocks according to an array of strings representing the rows of the Chunk
+     * @param rows Rows of blocks as an array of Strings
+     */
+    private void initFromRows(String[] rows) {
         int width = rows[0].length();
         int height = rows.length;
 
@@ -566,10 +588,18 @@ class Chunk {
         }
     }
 
+    /**
+     * Returns the width of this Chunk (left-to-right)
+     * @return The width of the Chunk
+     */
     public int getWidth() {
         return blocks.length;
     }
 
+    /**
+     * Returns the height of this Chunk (top-to-bottom)
+     * @return The height of the Chunk, or 0 if the Chunk has no width
+     */
     public int getHeight() {
         if (getWidth() > 0) {
             return blocks[0].length;
@@ -582,7 +612,7 @@ class Chunk {
      * Get the blocks stored in the chunk itself as a 2D array
      * @return A 2D array of chars representing the blocks in the chunk
      */
-    public char[][] getBlocks() {
+    char[][] getBlocks() {
         return blocks;
     }
 
@@ -592,11 +622,43 @@ class Chunk {
      * @return The column at this x-coordinate, or null
      * if the column does not exist
      */
-    public char[] getColumn(int x) {
+    char[] getColumn(int x) {
         if (x < 0 || x >= blocks.length) {
             return null;
         }
         return blocks[x];
+    }
+
+    /**
+     * Checks a given column to see if it contains ground blocks or ground
+     * and empty blocks
+     * @param x The column of blocks to check
+     * @return True if the column contains ONLY ground blocks or only
+     * ground AND air blocks, false otherwise
+     */
+    boolean checkGround(int x) {
+        char[] col = getColumn(x);
+        boolean foundGround = false;
+
+        // Column out of bounds
+        if (col == null) {
+            return false;
+        }
+
+        // Check one block at a time
+        for (int i = 0; i < col.length; i++) {
+            // Neither ground nor air
+            if (col[i] != 'X' && col[i] != '-') {
+                return false;
+            }
+            if (col[i] == 'X') {
+                foundGround = true;
+            }
+        }
+
+        // Contains only ground and air
+        // Only return true if some ground was found
+        return foundGround;
     }
 
     @Override
@@ -606,6 +668,10 @@ class Chunk {
 
     @Override
     public boolean equals(Object other) {
+        if (other.getClass() != Chunk.class) {
+            return false;
+        }
+
         return this.toString().equals(other.toString());
     }
 
@@ -613,6 +679,7 @@ class Chunk {
     public String toString() {
         String blocksAsStr = "";
 
+        // Write out Chunk row by row, inserting newlines after each
         for (int y = 0; y < getHeight(); y++) {
             for (int x = 0; x < getWidth(); x++) {
                 blocksAsStr += blocks[x][y];
@@ -621,25 +688,6 @@ class Chunk {
         }
 
         return blocksAsStr;
-    }
-
-    public boolean checkGround(int x) {
-        char[] col = getColumn(x);
-        boolean foundGround = false;
-
-        if (col == null) {
-            return false;
-        }
-
-        for (int i = 0; i < col.length; i++) {
-            if (col[i] != 'X' && col[i] != '-') {
-                return false;
-            }
-            if (col[i] == 'X') {
-                foundGround = true;
-            }
-        }
-        return foundGround;
     }
 
 }
