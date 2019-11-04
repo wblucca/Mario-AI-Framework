@@ -498,10 +498,18 @@ public class LevelGenerator implements MarioLevelGenerator {
 
         try {
             for (int i = 1; i < 1001; i++) {
+                Chunk prevChunk = null;
                 for (Chunk c : getUniqueChunks(new Chunk(readFileList("levels/notchParam/lvl-" + i + ".txt")))) {
+                    // Add this unique chunk to the set
                     if(!fileChunks.contains(c)) {
                         fileChunks.add(c);
                     }
+
+                    // Add this (prev,next) pair to the Markov chain hashmaps
+                    if (prevChunk != null) {
+                        addChunkPairToHash(prevChunk, c);
+                    }
+                    prevChunk = c;
                 }
             }
         } catch (Exception e) {
