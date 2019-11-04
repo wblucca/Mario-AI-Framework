@@ -44,7 +44,6 @@ public class LevelGenerator implements MarioLevelGenerator {
             "----",
             "XXXX",
             "XXXX",
-            "XXXX",
             "XXXX"
     });
 
@@ -68,14 +67,13 @@ public class LevelGenerator implements MarioLevelGenerator {
             "---###--###---",
             "--####--####--",
             "-#####--#####-",
-            "XXXXXX--XXXXXX",
             "XXXXXX--XXXXXX"
     });
 
     private final Chunk FLAG = new Chunk(new String[] {
             "------------",
-            "-F----------",
-            "-#----------",
+            "------------",
+            "----------F-",
             "XXXXXXXXXXXX"
     });
 
@@ -90,7 +88,6 @@ public class LevelGenerator implements MarioLevelGenerator {
             "----",
             "-tt-",
             "-tt-",
-            "XXXX",
             "XXXX"
     });
 
@@ -98,7 +95,6 @@ public class LevelGenerator implements MarioLevelGenerator {
             "-tt-",
             "-tt-",
             "-tt-",
-            "XXXX",
             "XXXX"
     });
 
@@ -106,7 +102,6 @@ public class LevelGenerator implements MarioLevelGenerator {
             "----",
             "-TT-",
             "-TT-",
-            "XXXX",
             "XXXX"
     });
 
@@ -114,7 +109,6 @@ public class LevelGenerator implements MarioLevelGenerator {
             "-TT-",
             "-TT-",
             "-TT-",
-            "XXXX",
             "XXXX"
     });
 
@@ -122,7 +116,6 @@ public class LevelGenerator implements MarioLevelGenerator {
             "-------",
             "-------",
             "-g--g--",
-            "XXXXXXX",
             "XXXXXXX"
     });
 
@@ -133,7 +126,6 @@ public class LevelGenerator implements MarioLevelGenerator {
             "-------",
             "-------",
             "-g-g-g-",
-            "XXXXXXX",
             "XXXXXXX"
     });
 
@@ -141,7 +133,6 @@ public class LevelGenerator implements MarioLevelGenerator {
             "-------",
             "-------",
             "-r-g-g-",
-            "XXXXXXX",
             "XXXXXXX"
     });
 
@@ -149,7 +140,6 @@ public class LevelGenerator implements MarioLevelGenerator {
             "-------",
             "-------",
             "--k-k--",
-            "XXXXXXX",
             "XXXXXXX"
     });
 
@@ -160,7 +150,6 @@ public class LevelGenerator implements MarioLevelGenerator {
             "-------",
             "-------",
             "-------",
-            "XXXXXXX",
             "XXXXXXX"
     });
 
@@ -171,7 +160,6 @@ public class LevelGenerator implements MarioLevelGenerator {
             "----------",
             "----------",
             "-----r---o",
-            "XXXXXXXXXX",
             "XXXXXXXXXX"
     });
 
@@ -180,7 +168,6 @@ public class LevelGenerator implements MarioLevelGenerator {
             "-oo------!",
             "----------",
             "--g-%%--g-",
-            "XXX-||-XXX",
             "XXX-||-XXX"
     });
 
@@ -188,7 +175,6 @@ public class LevelGenerator implements MarioLevelGenerator {
             "----------",
             "----------",
             "----------",
-            "XXXXXXXXXX",
             "XXXXXXXXXX"
     });
 
@@ -197,7 +183,6 @@ public class LevelGenerator implements MarioLevelGenerator {
             "--------##",
             "-------###",
             "------####",
-            "XXXXXXXXXX",
             "XXXXXXXXXX"
     });
 
@@ -671,7 +656,7 @@ class Chunk {
         // Check one block at a time
         for (int i = 0; i < col.length; i++) {
             // Neither ground nor air
-            if (col[i] != 'X' && col[i] != '-' && col[i] != 'F') {
+            if (col[i] != 'X' && col[i] != '-') {
                 return false;
             }
             if (col[i] == 'X') {
