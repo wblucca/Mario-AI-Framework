@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class LevelGenerator implements MarioLevelGenerator {
 
     // Markov table
-    HashMap<Chunk, HashMap> transitionMaps = new HashMap<>();
+    HashMap<Chunk, HashMap<Chunk, Double>> transitionMaps = new HashMap<>();
 
     // List of all unique chunks
     ArrayList<Chunk> fileChunks = new ArrayList<>();
@@ -347,7 +347,7 @@ public class LevelGenerator implements MarioLevelGenerator {
     private void addChunkPairToHash(Chunk prev, Chunk next) {
         if(transitionMaps.containsKey(prev)) {
             if (transitionMaps.get(prev).containsKey(next)) {
-                Object newval = transitionMaps.get(prev).get(next);
+                Double newval = transitionMaps.get(prev).get(next);
                 transitionMaps.get(prev).replace(next, newval + 1.0);
             }
             else {
