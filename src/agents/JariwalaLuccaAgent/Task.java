@@ -1,11 +1,11 @@
 package agents.JariwalaLuccaAgent;
 
-import java.util.LinkedList;
+import java.util.List;
 
 public abstract class Task {
 
     // Holds the child nodes of the task (if any)
-    protected LinkedList<Task> children;
+    protected List<Task> children;
 
     public abstract boolean run();
 }

@@ -1,6 +1,25 @@
 package agents.JariwalaLuccaAgent;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Sequence extends Task{
+
+    /**
+     * Construct a Sequence node with the given children
+     * @param tasks List of child nodes
+     */
+    public Sequence(List<Task> tasks) {
+        children = tasks;
+    }
+
+    /**
+     * Construct a Sequence node with the given children
+     * @param tasks Child nodes
+     */
+    public Sequence(Task... tasks) {
+        this(Arrays.asList(tasks));
+    }
 
     @Override
     public boolean run() {
