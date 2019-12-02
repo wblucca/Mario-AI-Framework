@@ -25,7 +25,7 @@ public class Selector extends Task {
     public boolean run() {
         // Run all children, in order, until one succeeds
         for (Task c : children) {
-            if (!c.run()) {
+            if (c.run()) {
                 // Child succeeded, this child was "selected"
                 return true;
             }
