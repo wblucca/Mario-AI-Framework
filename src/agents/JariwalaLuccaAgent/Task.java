@@ -1,4 +1,6 @@
 package agents.JariwalaLuccaAgent;
 
-public class Task {
+public abstract class Task {
+
+    public abstract boolean run();
 }
