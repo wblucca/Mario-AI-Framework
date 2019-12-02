@@ -3,7 +3,7 @@ package agents.JariwalaLuccaAgent;
 import java.util.Arrays;
 import java.util.List;
 
-public class Sequence extends Task{
+public class Sequence extends Task {
 
     /**
      * Construct a Sequence node with the given children
