@@ -7,7 +7,7 @@ import engine.core.MarioForwardModel;
 public class Selector extends Task {
 
     /**
-     * Construct a Sequence node with the given children
+     * Construct a Selector node with the given children
      * @param tasks List of child nodes
      */
     public Selector(List<Task> tasks) {
@@ -15,7 +15,7 @@ public class Selector extends Task {
     }
 
     /**
-     * Construct a Sequence node with the given children
+     * Construct a Selector node with the given children
      * @param tasks Child nodes
      */
     public Selector(Task... tasks) {
