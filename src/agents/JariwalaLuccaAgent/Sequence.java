@@ -2,8 +2,9 @@ package agents.JariwalaLuccaAgent;
 
 import java.util.Arrays;
 import java.util.List;
+import engine.core.MarioForwardModel;
 
-public class Sequence extends Task{
+public class Sequence extends Task {
 
     /**
      * Construct a Sequence node with the given children
