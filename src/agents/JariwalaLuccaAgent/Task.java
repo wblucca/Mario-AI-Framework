@@ -1,6 +1,7 @@
 package agents.JariwalaLuccaAgent;
 
 import java.util.List;
+import engine.core.MarioForwardModel;
 
 public abstract class Task {
 
