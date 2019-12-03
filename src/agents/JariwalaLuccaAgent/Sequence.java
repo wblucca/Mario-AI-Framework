@@ -23,10 +23,10 @@ public class Sequence extends Task {
     }
 
     @Override
-    public boolean run() {
+    public boolean run(Agent agent) {
         // Run all children, in order, until one fails
         for (Task c : children) {
-            if (!c.run()) {
+            if (!c.run(agent)) {
                 // Child failed, whole sequence fails
                 return false;
             }
