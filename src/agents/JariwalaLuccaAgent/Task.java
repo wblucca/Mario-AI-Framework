@@ -8,5 +8,7 @@ public abstract class Task {
     // Holds the child nodes of the task (if any)
     protected List<Task> children;
 
-    public abstract boolean run();
+    protected Agent agent;
+
+    public abstract boolean run(Agent agent);
 }

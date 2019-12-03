@@ -23,10 +23,10 @@ public class Selector extends Task {
     }
 
     @Override
-    public boolean run() {
+    public boolean run(Agent agent) {
         // Run all children, in order, until one succeeds
         for (Task c : children) {
-            if (c.run()) {
+            if (c.run(agent)) {
                 // Child succeeded, this child was "selected"
                 return true;
             }

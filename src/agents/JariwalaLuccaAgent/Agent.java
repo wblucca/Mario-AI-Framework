@@ -5,6 +5,12 @@ import engine.core.MarioForwardModel;
 import engine.core.MarioTimer;
 
 public class Agent implements MarioAgent {
+    private boolean action[];
+
+
+
+
+
     /**
      * initialize and prepare the agent before the game starts
      *
@@ -25,7 +31,9 @@ public class Agent implements MarioAgent {
      */
     @Override
     public boolean[] getActions(MarioForwardModel model, MarioTimer timer) {
-        return new boolean[0];
+        Selector select = new Selector(new Walk(model));
+        select.run(this);
+        return action;
     }
 
     /**
@@ -37,4 +45,11 @@ public class Agent implements MarioAgent {
     public String getAgentName() {
         return "JariwalaLuccaAgent";
     }
+
+    public void setAction(boolean[] nextAction) {
+        action = nextAction;
+    }
+
+
+
 }
