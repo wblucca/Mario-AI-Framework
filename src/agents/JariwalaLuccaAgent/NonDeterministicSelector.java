@@ -1,9 +1,7 @@
 package agents.JariwalaLuccaAgent;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
-import engine.core.MarioForwardModel;
 
 public class NonDeterministicSelector extends Task {
 
