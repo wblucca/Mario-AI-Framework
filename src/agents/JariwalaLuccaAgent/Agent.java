@@ -41,10 +41,10 @@ public class Agent implements MarioAgent {
         Task root = new Selector(
                 new Sequence(
                         new IsHoldingJump(model),
-                        new NonDeterministicSelector(1,
-                                new JumpOverPipe(model),
-                                new JumpGap(model),
-                                new JumpOverEnemy(model))),
+                        new Selector(
+                                new JumpOverEnemy(model), new JumpGap(model), new JumpOverPipe(model)
+
+                                )),
                 new Walk(model));
 
         if (curInertia >= INERTIA) {

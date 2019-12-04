@@ -15,6 +15,7 @@ public class JumpOverPipe extends Task {
     @Override
     public boolean run(Agent agent) {
         int[][] scene = model.getMarioSceneObservation();
+        int[] mariopos = model.getMarioScreenTilePos();
         for (int i = 25; i < scene.length; i++) {
             for (int j = 6; j < scene[0].length; j++) {
                 if (scene[i][j] == 34) {

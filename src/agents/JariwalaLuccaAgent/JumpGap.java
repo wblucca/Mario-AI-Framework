@@ -15,7 +15,7 @@ public class JumpGap extends Task{
         int[][] scene = model.getMarioSceneObservation();
         int j = 12;
         while (j < scene[0].length) {
-            if (scene[0][j] != 17 || scene[1][j] != 17) {
+            if (scene[15][j] != 17 || scene[16][j] != 17) {
                 agent.setAction(Helper.createAction(false, true, false, true, false));
                 return true;
             }
