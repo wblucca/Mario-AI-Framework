@@ -6,9 +6,13 @@ import engine.core.MarioForwardModel;
 import engine.core.MarioTimer;
 
 public class Agent implements MarioAgent {
-    private boolean action[];
+    // Current action to use
+    private boolean action[] = Helper.createAction(false, false, false, false, false);
+    // How many frames since last tree evaluation
+    private int curInertia = 0;
 
-
+    // How many frames to hold on to one action
+    private static final int INERTIA = 5;
 
 
 
@@ -32,8 +36,24 @@ public class Agent implements MarioAgent {
      */
     @Override
     public boolean[] getActions(MarioForwardModel model, MarioTimer timer) {
-        Selector select = new Selector(new JumpOverPipe(model), new JumpGap(model), new JumpOverEnemy(model), new Walk(model));
-        select.run(this);
+        curInertia++;
+
+        Task root =
+                new Sequence(
+                        new IsHoldingJump(model),
+                        new Selector(
+                                new JumpOverPipe(model),
+                                new JumpGap(model),
+                                new JumpOverEnemy(model),
+                                new Walk(model)));
+
+        if (curInertia >= INERTIA) {
+            // Reset inertia if tree succeeds
+            if (root.run(this)) {
+                curInertia = 0;
+            }
+        }
+
         if (action == null) {
             action = Helper.createAction(false, false, false, false, false);
         }
@@ -54,6 +74,8 @@ public class Agent implements MarioAgent {
         action = nextAction;
     }
 
-
+    public boolean[] getAction() {
+        return action;
+    }
 
 }

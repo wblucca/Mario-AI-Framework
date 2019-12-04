@@ -4,7 +4,7 @@ import engine.core.MarioForwardModel;
 import agents.robinBaumgarten.Helper;
 
 
-public class JumpOverPipe extends Task{
+public class JumpOverPipe extends Task {
 
     private MarioForwardModel model;
 
@@ -15,13 +15,13 @@ public class JumpOverPipe extends Task{
     @Override
     public boolean run(Agent agent) {
         int[][] scene = model.getMarioSceneObservation();
-        int j = 6;
-        while (j < scene[0].length) {
-            if (scene[25][j] == 34 || scene[26][j] == 34) {
-                agent.setAction(Helper.createAction(false, true, false, true, false));
-                return true;
+        for (int i = 25; i < scene.length; i++) {
+            for (int j = 6; j < scene[0].length; j++) {
+                if (scene[i][j] == 34) {
+                    agent.setAction(Helper.createAction(false, true, false, true, false));
+                    return true;
+                }
             }
-            j++;
         }
         return false;
     }

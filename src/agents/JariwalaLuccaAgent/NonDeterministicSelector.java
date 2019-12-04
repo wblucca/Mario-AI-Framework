@@ -49,8 +49,8 @@ public class NonDeterministicSelector extends Task {
             int k = (int) (Math.random() * n);
 
             // Swap elements
-            Task temp = children.get(n);
-            children.set(n, children.get(k));
+            Task temp = children.get(n - 1);
+            children.set(n - 1, children.get(k));
             children.set(k, temp);
 
             n--;
