@@ -1,7 +1,6 @@
 package agents.JariwalaLuccaAgent;
 
 import java.util.Arrays;
-import java.util.List;
 import engine.core.MarioForwardModel;
 
 public class Sequence extends Task {
@@ -15,10 +14,10 @@ public class Sequence extends Task {
     }
 
     @Override
-    public boolean run(Agent agent) {
+    public boolean run(Agent agent, MarioForwardModel model) {
         // Run all children, in order, until one fails
         for (Task c : children) {
-            if (!c.run(agent)) {
+            if (!c.run(agent, model)) {
                 // Child failed, whole sequence fails
                 return false;
             }

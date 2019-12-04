@@ -5,15 +5,8 @@ import engine.core.MarioForwardModel;
 
 public class IsHoldingJump extends Task {
 
-
-    private MarioForwardModel model;
-
-    public IsHoldingJump(MarioForwardModel modelimport) {
-        model = modelimport;
-    }
-
     @Override
-    public boolean run(Agent agent) {
+    public boolean run(Agent agent, MarioForwardModel model) {
         // If agent is holding jump button and grounded
         if (agent.getAction()[4] && model.isMarioOnGround()) {
             // Needed to release the jump button, fails

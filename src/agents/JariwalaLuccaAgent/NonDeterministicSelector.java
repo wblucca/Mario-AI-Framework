@@ -1,5 +1,7 @@
 package agents.JariwalaLuccaAgent;
 
+import engine.core.MarioForwardModel;
+
 import java.util.Arrays;
 import java.util.Random;
 
@@ -29,13 +31,13 @@ public class NonDeterministicSelector extends Task {
     }
 
     @Override
-    public boolean run(Agent agent) {
+    public boolean run(Agent agent, MarioForwardModel model) {
         // Randomize the order of the children
         shuffleChildren();
 
         // Run all children, in a random order, until one succeeds
         for (Task c : children) {
-            if (c.run(agent)) {
+            if (c.run(agent, model)) {
                 // Child succeeded, this child was "selected"
                 return true;
             }

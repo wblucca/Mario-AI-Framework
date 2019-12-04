@@ -4,14 +4,9 @@ import engine.core.MarioForwardModel;
 import agents.robinBaumgarten.Helper;
 
 public class JumpGap extends Task{
-    private MarioForwardModel model;
-
-    public JumpGap (MarioForwardModel modelimport) {
-        model = modelimport;
-    }
 
     @Override
-    public boolean run(Agent agent) {
+    public boolean run(Agent agent, MarioForwardModel model) {
         int[][] scene = model.getMarioSceneObservation();
         int j = 12;
         while (j < scene[0].length) {

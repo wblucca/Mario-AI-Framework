@@ -6,14 +6,8 @@ import agents.robinBaumgarten.Helper;
 
 public class JumpOverEnemy extends Task{
 
-    private MarioForwardModel model;
-
-    public JumpOverEnemy (MarioForwardModel modelimport) {
-        model = modelimport;
-    }
-
     @Override
-    public boolean run(Agent agent) {
+    public boolean run(Agent agent, MarioForwardModel model) {
         float[] marioPos = model.getMarioFloatPos();
         float[] enemyPos = model.getEnemiesFloatPos();
         for (int i = 0; i < enemyPos.length-2; i++) {

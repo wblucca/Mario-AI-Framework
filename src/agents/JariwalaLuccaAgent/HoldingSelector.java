@@ -1,5 +1,7 @@
 package agents.JariwalaLuccaAgent;
 
+import engine.core.MarioForwardModel;
+
 import java.util.Arrays;
 import java.util.Random;
 
@@ -36,12 +38,12 @@ public class HoldingSelector extends NonDeterministicSelector {
     }
 
     @Override
-    public boolean run(Agent agent) {
+    public boolean run(Agent agent, MarioForwardModel model) {
         // Randomize the order of the children
         shuffleChildren();
 
         if (curHold < holdDuration) {
-            if (heldTask.run(agent)) {
+            if (heldTask.run(agent, model)) {
                 // Held task succeeded, keep holding
                 return true;
             }
@@ -52,7 +54,7 @@ public class HoldingSelector extends NonDeterministicSelector {
 
         // Run all children, in a random order, until one succeeds
         for (Task c : children) {
-            if (c.run(agent)) {
+            if (c.run(agent, model)) {
                 // Child succeeded, this child will be held
                 heldTask = c;
                 return true;

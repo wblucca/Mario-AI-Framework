@@ -1,5 +1,7 @@
 package agents.JariwalaLuccaAgent;
 
+import engine.core.MarioForwardModel;
+
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -38,10 +40,10 @@ public class Chance extends Task {
     }
 
     @Override
-    public boolean run(Agent agent) {
+    public boolean run(Agent agent, MarioForwardModel model) {
         if (random.nextDouble() < probability) {
             // Random chance successful
-            child.run(agent);
+            child.run(agent, model);
             return true;
         }
 

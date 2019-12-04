@@ -1,5 +1,7 @@
 package agents.JariwalaLuccaAgent;
 
+import engine.core.MarioForwardModel;
+
 import java.util.Arrays;
 
 public class Selector extends Task {
@@ -13,10 +15,10 @@ public class Selector extends Task {
     }
 
     @Override
-    public boolean run(Agent agent) {
+    public boolean run(Agent agent, MarioForwardModel model) {
         // Run all children, in order, until one succeeds
         for (Task c : children) {
-            if (c.run(agent)) {
+            if (c.run(agent, model)) {
                 // Child succeeded, this child was "selected"
                 return true;
             }

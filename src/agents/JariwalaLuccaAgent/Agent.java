@@ -10,6 +10,8 @@ public class Agent implements MarioAgent {
     private boolean action[] = Helper.createAction(false, false, false, false, false);
     // How many frames since last tree evaluation
     private int curInertia = 0;
+    // Root of behavior tree
+    private Task root;
 
     // How many frames to hold on to one action
     private static final int INERTIA = 4;
@@ -23,7 +25,14 @@ public class Agent implements MarioAgent {
      */
     @Override
     public void initialize(MarioForwardModel model, MarioTimer timer) {
-
+        root = new Selector(
+                new Sequence(
+                        new IsHoldingJump(),
+                        new NonDeterministicSelector(1,
+                                new JumpOverPipe(),
+                                new JumpGap(),
+                                new JumpOverEnemy())),
+                new Walk());
     }
 
     /**
@@ -37,18 +46,9 @@ public class Agent implements MarioAgent {
     public boolean[] getActions(MarioForwardModel model, MarioTimer timer) {
         curInertia++;
 
-        Task root = new Selector(
-                new Sequence(
-                        new IsHoldingJump(model),
-                        new NonDeterministicSelector(1,
-                                new JumpOverPipe(model),
-                                new JumpGap(model),
-                                new JumpOverEnemy(model))),
-                new Walk(model));
-
         if (curInertia >= INERTIA) {
             // Reset inertia if tree succeeds
-            if (root.run(this)) {
+            if (root.run(this, model)) {
                 curInertia = 0;
             }
         }
