@@ -15,7 +15,6 @@ public class Agent implements MarioAgent {
     private static final int INERTIA = 4;
 
 
-
     /**
      * initialize and prepare the agent before the game starts
      *
