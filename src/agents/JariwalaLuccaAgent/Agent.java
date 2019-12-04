@@ -28,10 +28,10 @@ public class Agent implements MarioAgent {
         root = new Selector(
                 new Sequence(
                         new IsHoldingJump(),
-                        new NonDeterministicSelector(1,
-                                new JumpOverPipe(),
-                                new JumpGap(),
-                                new JumpOverEnemy())),
+                        new Selector(
+                                new JumpOverEnemy(), new JumpGap(), new JumpOverPipe()
+
+                        )),
                 new Walk());
     }
 
