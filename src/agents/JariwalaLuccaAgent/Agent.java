@@ -12,7 +12,7 @@ public class Agent implements MarioAgent {
     private int curInertia = 0;
 
     // How many frames to hold on to one action
-    private static final int INERTIA = 5;
+    private static final int INERTIA = 4;
 
 
 
@@ -38,14 +38,14 @@ public class Agent implements MarioAgent {
     public boolean[] getActions(MarioForwardModel model, MarioTimer timer) {
         curInertia++;
 
-        Task root =
+        Task root = new Selector(
                 new Sequence(
                         new IsHoldingJump(model),
-                        new Selector(
+                        new NonDeterministicSelector(1,
                                 new JumpOverPipe(model),
                                 new JumpGap(model),
-                                new JumpOverEnemy(model),
-                                new Walk(model)));
+                                new JumpOverEnemy(model))),
+                new Walk(model));
 
         if (curInertia >= INERTIA) {
             // Reset inertia if tree succeeds
