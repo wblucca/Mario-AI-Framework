@@ -7,7 +7,7 @@ public class JumpGap extends Task{
 
     @Override
     public boolean run(Agent agent, MarioForwardModel model) {
-        int[][] scene = model.getScreenSceneObservation();
+        int[][] scene = model.getMarioSceneObservation(0);
         int j = 14;
         while (j < scene[16].length) {
             if (scene[16][j] != 17) {
