@@ -1,25 +1,15 @@
 package agents.JariwalaLuccaAgent;
 
 import java.util.Arrays;
-import java.util.List;
-import engine.core.MarioForwardModel;
 
 public class Selector extends Task {
-
-    /**
-     * Construct a Selector node with the given children
-     * @param tasks List of child nodes
-     */
-    public Selector(List<Task> tasks) {
-        children = tasks;
-    }
 
     /**
      * Construct a Selector node with the given children
      * @param tasks Child nodes
      */
     public Selector(Task... tasks) {
-        this(Arrays.asList(tasks));
+        children = Arrays.asList(tasks);
     }
 
     @Override

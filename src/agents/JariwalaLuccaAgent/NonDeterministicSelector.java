@@ -1,31 +1,19 @@
 package agents.JariwalaLuccaAgent;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 public class NonDeterministicSelector extends Task {
 
     // Random generator can take a specific seed or use random one
     Random random;
-
-    /**
-     * Construct a NonDeterministicSelector node with the given children
-     *
-     * @param tasks List of child nodes
-     */
-    public NonDeterministicSelector(List<Task> tasks) {
-        children = tasks;
-        random = new Random();
-    }
-
     /**
      * Construct a NonDeterministicSelector node with the given children
      *
      * @param tasks Child nodes
      */
     public NonDeterministicSelector(Task... tasks) {
-        this(Arrays.asList(tasks));
+        children = Arrays.asList(tasks);
         random = new Random();
     }
 
@@ -36,7 +24,7 @@ public class NonDeterministicSelector extends Task {
      * @param tasks Child nodes
      */
     public NonDeterministicSelector(long seed, Task... tasks) {
-        this(Arrays.asList(tasks));
+        children = Arrays.asList(tasks);
         random = new Random(seed);
     }
 
@@ -57,7 +45,7 @@ public class NonDeterministicSelector extends Task {
         return false;
     }
 
-    private void shuffleChildren() {
+    protected void shuffleChildren() {
         int n = children.size();
 
         // While unshuffled elements remain
