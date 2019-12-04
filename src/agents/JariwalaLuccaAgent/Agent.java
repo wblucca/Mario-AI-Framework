@@ -14,7 +14,7 @@ public class Agent implements MarioAgent {
     private Task root;
 
     // How many frames to hold on to one action
-    private static final int INERTIA = 4;
+    private static final int INERTIA = 2;
 
 
     /**
