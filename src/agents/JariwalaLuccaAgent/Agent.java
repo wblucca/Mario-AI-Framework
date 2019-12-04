@@ -1,5 +1,6 @@
 package agents.JariwalaLuccaAgent;
 
+import agents.robinBaumgarten.Helper;
 import engine.core.MarioAgent;
 import engine.core.MarioForwardModel;
 import engine.core.MarioTimer;
@@ -31,8 +32,11 @@ public class Agent implements MarioAgent {
      */
     @Override
     public boolean[] getActions(MarioForwardModel model, MarioTimer timer) {
-        Selector select = new Selector(new Walk(model));
+        Selector select = new Selector(new JumpOverPipe(model), new JumpGap(model), new JumpOverEnemy(model), new Walk(model));
         select.run(this);
+        if (action == null) {
+            action = Helper.createAction(false, false, false, false, false);
+        }
         return action;
     }
 
