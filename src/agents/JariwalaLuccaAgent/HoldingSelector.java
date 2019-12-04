@@ -42,11 +42,12 @@ public class HoldingSelector extends NonDeterministicSelector {
         // Randomize the order of the children
         shuffleChildren();
 
+        curHold++;
+
         if (curHold < holdDuration) {
-            if (heldTask.run(agent, model)) {
-                // Held task succeeded, keep holding
-                return true;
-            }
+            // Keep holding
+            heldTask.run(agent, model);
+            return true;
         }
 
         // Held task failed or timed out (exceed holdDuration)
