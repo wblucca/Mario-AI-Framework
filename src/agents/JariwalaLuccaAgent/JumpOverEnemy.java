@@ -10,7 +10,7 @@ public class JumpOverEnemy extends Task{
     public boolean run(Agent agent, MarioForwardModel model) {
         float[] marioPos = model.getMarioFloatPos();
         float[] enemyPos = model.getEnemiesFloatPos();
-        for (int i = 0; i < enemyPos.length-2; i++) {
+        for (int i = 0; i < enemyPos.length/3; i++) {
             float enemyx = enemyPos[3 * i + 1];
             float enemyy = enemyPos[3 * i + 2];
             if (Math.abs(enemyx) - marioPos[0] < 150 && Math.abs(marioPos[1] - enemyy) < 48) {
