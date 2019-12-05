@@ -16,13 +16,11 @@ public class JumpOverEnemy extends Task{
             if (Math.abs(enemyx - marioPos[0]) < 64 && marioPos[1] - enemyy < 10) {
                 if (Math.abs(enemyx - marioPos[0]) < 6 && Math.abs(marioPos[1] - enemyy) < 6) {
                     agent.setAction(Helper.createAction(true, false, false, true, false));
-                    return true;
                 }
                 else {
                     agent.setAction(Helper.createAction(false, true, false, true, false));
-                    return true;
                 }
-
+                return true;
             }
         }
         return false;
