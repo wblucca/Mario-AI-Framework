@@ -1,0 +1,16 @@
+Willian Lucca
+Neer Jariwala
+
+External Sources:
+Millington & Funge, Artificial Intelligence for Games. Chapter 5.4
+
+List of Files:
+All files can be found in the JariwalaLuccaAgent Package. The files within this package are: Agent, Chance, GetShrooms, IsHoldingJump, JumpGap, JumpOverEnemy, JumpOverPipe, Run, Selector, Sequence, Task, Walk, and this README.
+
+Instructions:
+Place the entire package within the "agents" (->src->agents) folder in the framework.
+Then change the agent being used in "PlayLevel" (->src->PlayLevel) to new agents.JariwalaLuccaAgent.Agent().
+After doing so, hit play to watch the agent play.
+
+Video Link:
+https://youtu.be/0yZNfZrP0_4
