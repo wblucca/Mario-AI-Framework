@@ -29,7 +29,7 @@ public class Agent implements MarioAgent {
                 new Sequence(
                         new IsHoldingJump(),
                         new Selector(
-                                new JumpOverEnemy(), new JumpGap(), new JumpOverPipe()
+                                new GetShrooms(), new JumpOverEnemy(), new JumpGap(), new JumpOverPipe()
 
                         )),
                 new Walk());
