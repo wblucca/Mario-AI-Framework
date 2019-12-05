@@ -34,7 +34,7 @@ public class Agent implements MarioAgent {
                                 new JumpGap(),
                                 new JumpOverPipe()
                         )),
-                new Chance(0.0, new Walk()),
+                new Chance(8290, 0.2, new Walk()),
                 new Run());
     }
 
