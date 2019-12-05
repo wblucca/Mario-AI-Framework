@@ -29,10 +29,12 @@ public class Agent implements MarioAgent {
                 new Sequence(
                         new IsHoldingJump(),
                         new Selector(
-                                new JumpOverEnemy(), new JumpGap(), new JumpOverPipe()
-
+                                new JumpOverEnemy(),
+                                new JumpGap(),
+                                new JumpOverPipe()
                         )),
-                new Walk());
+                new Chance(0.0, new Walk()),
+                new Run());
     }
 
     /**
