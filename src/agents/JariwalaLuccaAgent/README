@@ -5,7 +5,7 @@ External Sources:
 Millington & Funge, Artificial Intelligence for Games. Chapter 5.4
 
 List of Files:
-All files can be found in the JariwalaLuccaAgent Package. The files within this package are: Agent, Chance, GetShrooms, IsHoldingJump, JumpGap, JumpOverEnemy, JumpOverPipe, Run, Selector, Sequence, Task, Walk, and this README.
+All files can be found in the JariwalaLuccaAgent Package. The files within this package are: Agent, Chance, GetShrooms, IsHoldingJump, JumpGap, JumpOverEnemy, JumpOverPipe, Run, Selector, Sequence, Task, Walk, the Mario AI Writeup, and this README.
 
 Instructions:
 Place the entire package within the "agents" (->src->agents) folder in the framework.
