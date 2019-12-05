@@ -10,6 +10,7 @@ All files can be found in the JariwalaLuccaAgent Package. The files within this 
 Instructions:
 Place the entire package within the "agents" (->src->agents) folder in the framework.
 Then change the agent being used in "PlayLevel" (->src->PlayLevel) to new agents.JariwalaLuccaAgent.Agent().
+Set the level to play to be level 1 from the level pack original.
 After doing so, hit play to watch the agent play.
 
 Video Link:
